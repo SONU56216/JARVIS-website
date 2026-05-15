@@ -2,891 +2,769 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>JARVIS AI Assistant</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      scroll-behavior: smooth;
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      scroll-behavior:smooth;
     }
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: #050816;
-      color: white;
-      overflow-x: hidden;
-      cursor: none;
+    body{
+      background:#050816;
+      color:white;
+      font-family:'Poppins',sans-serif;
+      overflow-x:hidden;
+      cursor:none;
     }
 
-    ::-webkit-scrollbar {
-      width: 8px;
+    body::before{
+      content:'';
+      position:fixed;
+      width:100%;
+      height:100%;
+      background:
+      radial-gradient(circle at top left, rgba(0,255,255,0.12), transparent 30%),
+      radial-gradient(circle at bottom right, rgba(0,255,255,0.08), transparent 30%);
+      z-index:-2;
     }
 
-    ::-webkit-scrollbar-thumb {
-      background: cyan;
-      border-radius: 20px;
+    .particles{
+      position:fixed;
+      width:100%;
+      height:100%;
+      overflow:hidden;
+      z-index:-1;
     }
 
-    .cursor {
-      width: 20px;
-      height: 20px;
-      border: 2px solid cyan;
-      border-radius: 50%;
-      position: fixed;
-      pointer-events: none;
-      transform: translate(-50%, -50%);
-      box-shadow: 0 0 20px cyan;
-      z-index: 9999;
+    .particle{
+      position:absolute;
+      width:3px;
+      height:3px;
+      background:cyan;
+      border-radius:50%;
+      opacity:.5;
+      animation:float 12s linear infinite;
     }
 
-    .particles {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      z-index: -1;
-    }
-
-    .particle {
-      position: absolute;
-      width: 3px;
-      height: 3px;
-      background: cyan;
-      border-radius: 50%;
-      opacity: 0.5;
-      animation: float 10s linear infinite;
-    }
-
-    @keyframes float {
-      0% {
-        transform: translateY(100vh) scale(0);
+    @keyframes float{
+      0%{
+        transform:translateY(100vh);
       }
-      100% {
-        transform: translateY(-10vh) scale(1);
+      100%{
+        transform:translateY(-10vh);
       }
     }
 
-    nav {
-      position: fixed;
-      width: 100%;
-      top: 0;
-      z-index: 1000;
-      padding: 20px 8%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      backdrop-filter: blur(20px);
-      background: rgba(255,255,255,0.05);
-      border-bottom: 1px solid rgba(0,255,255,0.1);
+    .cursor{
+      width:20px;
+      height:20px;
+      border:2px solid cyan;
+      border-radius:50%;
+      position:fixed;
+      transform:translate(-50%,-50%);
+      pointer-events:none;
+      box-shadow:0 0 20px cyan;
+      z-index:9999;
     }
 
-    nav h1 {
-      font-family: 'Orbitron', sans-serif;
-      color: cyan;
-      font-size: 2rem;
-      text-shadow: 0 0 20px cyan;
+    nav{
+      position:fixed;
+      top:0;
+      width:100%;
+      padding:20px 8%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      background:rgba(255,255,255,0.04);
+      backdrop-filter:blur(20px);
+      border-bottom:1px solid rgba(0,255,255,.1);
+      z-index:1000;
     }
 
-    nav ul {
-      display: flex;
-      gap: 30px;
-      list-style: none;
+    nav h1{
+      font-family:'Orbitron',sans-serif;
+      color:cyan;
+      text-shadow:0 0 20px cyan;
     }
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      transition: 0.3s;
+    nav ul{
+      display:flex;
+      gap:30px;
+      list-style:none;
     }
 
-    nav a:hover {
-      color: cyan;
-      text-shadow: 0 0 10px cyan;
+    nav a{
+      text-decoration:none;
+      color:white;
+      transition:.3s;
     }
 
-    section {
-      min-height: 100vh;
-      padding: 120px 8%;
-      position: relative;
+    nav a:hover{
+      color:cyan;
+      text-shadow:0 0 10px cyan;
     }
 
-    .hero {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      overflow: hidden;
+    section{
+      min-height:100vh;
+      padding:120px 8%;
     }
 
-    .hero::before {
-      content: '';
-      position: absolute;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(0,255,255,0.2), transparent 70%);
-      animation: pulse 5s infinite;
+    .hero{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      position:relative;
     }
 
-    @keyframes pulse {
-      0%,100% {
-        transform: scale(1);
+    .hero::before{
+      content:'';
+      position:absolute;
+      width:500px;
+      height:500px;
+      background:radial-gradient(circle, rgba(0,255,255,.2), transparent 70%);
+      animation:pulse 5s infinite;
+    }
+
+    @keyframes pulse{
+      0%,100%{
+        transform:scale(1);
       }
-      50% {
-        transform: scale(1.2);
-      }
-    }
-
-    .hero-content {
-      z-index: 2;
-      animation: fadeIn 2s ease;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(50px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
+      50%{
+        transform:scale(1.2);
       }
     }
 
-    .hero h2 {
-      font-size: 5rem;
-      font-family: 'Orbitron', sans-serif;
-      background: linear-gradient(to right, cyan, #4facfe);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 30px cyan;
-      margin-bottom: 20px;
+    .hero-content{
+      z-index:2;
     }
 
-    .hero p {
-      color: #ccc;
-      font-size: 1.3rem;
-      margin-bottom: 40px;
+    .hero h2{
+      font-size:5rem;
+      font-family:'Orbitron',sans-serif;
+      background:linear-gradient(to right, cyan, #4facfe);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      text-shadow:0 0 30px cyan;
+      margin-bottom:20px;
     }
 
-    .buttons {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-      flex-wrap: wrap;
+    .typing{
+      overflow:hidden;
+      white-space:nowrap;
+      border-right:3px solid cyan;
+      width:0;
+      margin:auto;
+      animation:typing 4s steps(40,end) forwards, blink .7s infinite;
+      color:#ccc;
+      font-size:1.3rem;
     }
 
-    .btn {
-      padding: 15px 35px;
-      border-radius: 50px;
-      border: 1px solid cyan;
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(20px);
-      color: white;
-      cursor: pointer;
-      transition: 0.4s;
-      font-weight: 600;
-      box-shadow: 0 0 20px rgba(0,255,255,0.1);
+    @keyframes typing{
+      from{width:0}
+      to{width:100%}
     }
 
-    .btn:hover {
-      background: cyan;
-      color: black;
-      transform: translateY(-5px) scale(1.05);
-      box-shadow: 0 0 30px cyan;
+    @keyframes blink{
+      50%{
+        border-color:transparent;
+      }
     }
 
-    .btn:active {
-      transform: scale(0.95);
+    .buttons{
+      display:flex;
+      justify-content:center;
+      gap:20px;
+      margin-top:40px;
+      flex-wrap:wrap;
     }
 
-    .glass {
-      position: relative;
-      overflow: hidden;
+    .btn{
+      padding:15px 35px;
+      border:none;
+      border-radius:50px;
+      background:rgba(255,255,255,.05);
+      border:1px solid cyan;
+      color:white;
+      cursor:pointer;
+      transition:.4s;
+      backdrop-filter:blur(20px);
+      font-weight:600;
+      box-shadow:0 0 20px rgba(0,255,255,.1);
     }
 
-    .glass::before {
-      content: '';
-      position: absolute;
-      top: -100%;
-      left: -100%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(
-        45deg,
-        transparent,
-        rgba(0,255,255,0.08),
-        transparent
+    .btn:hover{
+      background:cyan;
+      color:black;
+      transform:translateY(-5px) scale(1.05);
+      box-shadow:0 0 40px cyan;
+    }
+
+    .section-title{
+      text-align:center;
+      font-size:3rem;
+      margin-bottom:60px;
+      color:cyan;
+      font-family:'Orbitron',sans-serif;
+      text-shadow:0 0 20px cyan;
+    }
+
+    .glass{
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(0,255,255,.15);
+      backdrop-filter:blur(20px);
+      border-radius:25px;
+      padding:30px;
+      transition:.4s;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .glass:hover{
+      transform:translateY(-10px);
+      box-shadow:0 0 40px rgba(0,255,255,.25);
+    }
+
+    .glass::before{
+      content:'';
+      position:absolute;
+      width:200%;
+      height:200%;
+      background:linear-gradient(
+      45deg,
+      transparent,
+      rgba(0,255,255,.08),
+      transparent
       );
-      transform: rotate(25deg);
-      transition: 0.8s;
-      pointer-events: none;
+      top:-100%;
+      left:-100%;
+      transition:.8s;
     }
 
-    .glass:hover::before {
-      top: 100%;
-      left: 100%;
+    .glass:hover::before{
+      top:100%;
+      left:100%;
     }
 
-    .notification {
-      position: fixed;
-      top: 100px;
-      right: 30px;
-      background: rgba(0,255,255,0.1);
-      border: 1px solid cyan;
-      backdrop-filter: blur(20px);
-      color: white;
-      padding: 18px 28px;
-      border-radius: 20px;
-      box-shadow: 0 0 25px rgba(0,255,255,0.3);
-      z-index: 9999;
-      transform: translateX(400px);
-      transition: 0.5s;
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:30px;
     }
 
-    .notification.show {
-      transform: translateX(0);
+    .card-icon{
+      font-size:3rem;
+      margin-bottom:20px;
+      color:cyan;
     }
 
-    .typing {
-      overflow: hidden;
-      border-right: 3px solid cyan;
-      white-space: nowrap;
-      animation: typing 4s steps(40,end), blink .7s infinite;
+    .dashboard{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+      gap:30px;
     }
 
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
+    .bars{
+      display:flex;
+      gap:10px;
+      align-items:end;
+      height:120px;
+      margin-top:30px;
     }
 
-    @keyframes blink {
-      50% { border-color: transparent }
+    .bar{
+      width:15px;
+      background:cyan;
+      border-radius:20px;
+      animation:wave 1s infinite ease-in-out;
+      box-shadow:0 0 15px cyan;
     }
 
-    .floating-orb {
-      position: absolute;
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(0,255,255,0.25), transparent 70%);
-      filter: blur(40px);
-      animation: floatOrb 8s ease-in-out infinite;
-      z-index: -1;
-    }
+    .bar:nth-child(2){animation-delay:.1s;}
+    .bar:nth-child(3){animation-delay:.2s;}
+    .bar:nth-child(4){animation-delay:.3s;}
+    .bar:nth-child(5){animation-delay:.4s;}
 
-    @keyframes floatOrb {
-      0%,100% {
-        transform: translateY(0px);
+    @keyframes wave{
+      0%,100%{
+        height:30px;
       }
-      50% {
-        transform: translateY(-40px);
+      50%{
+        height:120px;
       }
     }
 
-    .hero::after {
-      background: cyan;
-      color: black;
-      transform: translateY(-5px);
-      box-shadow: 0 0 30px cyan;
+    .progress{
+      width:100%;
+      height:10px;
+      background:rgba(255,255,255,.1);
+      border-radius:20px;
+      overflow:hidden;
+      margin-top:10px;
     }
 
-    .section-title {
-      text-align: center;
-      font-size: 3rem;
-      color: cyan;
-      margin-bottom: 60px;
-      font-family: 'Orbitron', sans-serif;
-      text-shadow: 0 0 20px cyan;
+    .progress span{
+      display:block;
+      height:100%;
+      width:80%;
+      background:linear-gradient(to right, cyan, #4facfe);
+      box-shadow:0 0 20px cyan;
     }
 
-    .glass {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(0,255,255,0.15);
-      backdrop-filter: blur(20px);
-      border-radius: 25px;
-      box-shadow: 0 0 30px rgba(0,255,255,0.08);
+    .timeline{
+      border-left:2px solid cyan;
+      padding-left:40px;
+      display:flex;
+      flex-direction:column;
+      gap:30px;
     }
 
-    .about-grid,
-    .feature-grid,
-    .tech-grid,
-    .dashboard-grid,
-    .github-grid {
-      display: grid;
-      gap: 30px;
+    .timeline-card{
+      position:relative;
     }
 
-    .about-grid {
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      align-items: center;
+    .timeline-card::before{
+      content:'';
+      width:20px;
+      height:20px;
+      background:cyan;
+      border-radius:50%;
+      position:absolute;
+      left:-52px;
+      top:35px;
+      box-shadow:0 0 20px cyan;
     }
 
-    .about-card,
-    .feature-card,
-    .tech-card,
-    .dashboard-card,
-    .github-card,
-    .timeline-card,
-    .contact-form {
-      padding: 30px;
-      transition: 0.4s;
+    form input,
+    form textarea{
+      width:100%;
+      padding:18px;
+      margin-bottom:20px;
+      border-radius:15px;
+      border:1px solid rgba(0,255,255,.15);
+      background:rgba(255,255,255,.05);
+      color:white;
+      outline:none;
     }
 
-    .about-card:hover,
-    .feature-card:hover,
-    .tech-card:hover,
-    .dashboard-card:hover,
-    .github-card:hover,
-    .timeline-card:hover {
-      transform: translateY(-10px);
-      border-color: cyan;
-      box-shadow: 0 0 40px rgba(0,255,255,0.25);
+    form input:focus,
+    form textarea:focus{
+      border-color:cyan;
+      box-shadow:0 0 20px rgba(0,255,255,.3);
     }
 
-    .ai-circle {
-      width: 250px;
-      height: 250px;
-      margin: auto;
-      border-radius: 50%;
-      background: radial-gradient(circle, cyan, transparent 70%);
-      animation: rotate 10s linear infinite;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 4rem;
-      font-family: 'Orbitron', sans-serif;
-      color: white;
-      box-shadow: 0 0 50px cyan;
+    .socials{
+      display:flex;
+      justify-content:center;
+      gap:20px;
+      margin-top:30px;
     }
 
-    @keyframes rotate {
-      100% {
-        transform: rotate(360deg);
-      }
+    .socials a{
+      width:60px;
+      height:60px;
+      border-radius:50%;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      border:1px solid cyan;
+      text-decoration:none;
+      color:white;
+      transition:.4s;
+      font-size:1.5rem;
     }
 
-    .feature-grid,
-    .tech-grid,
-    .github-grid {
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    .socials a:hover{
+      background:cyan;
+      color:black;
+      transform:translateY(-5px);
+      box-shadow:0 0 20px cyan;
     }
 
-    .feature-card i,
-    .tech-card i {
-      font-size: 3rem;
-      color: cyan;
-      margin-bottom: 20px;
-      display: block;
+    footer{
+      text-align:center;
+      padding:30px;
+      color:#aaa;
+      border-top:1px solid rgba(0,255,255,.1);
     }
 
-    .feature-card h3,
-    .tech-card h3,
-    .timeline-card h3 {
-      margin-bottom: 15px;
-      font-size: 1.5rem;
+    .notification{
+      position:fixed;
+      top:100px;
+      right:30px;
+      padding:18px 25px;
+      background:rgba(0,255,255,.1);
+      border:1px solid cyan;
+      border-radius:20px;
+      backdrop-filter:blur(20px);
+      transform:translateX(400px);
+      transition:.5s;
+      z-index:9999;
     }
 
-    .dashboard-grid {
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    .notification.show{
+      transform:translateX(0);
     }
 
-    .bars {
-      display: flex;
-      align-items: end;
-      gap: 10px;
-      height: 120px;
-      margin-top: 20px;
-    }
+    @media(max-width:768px){
 
-    .bar {
-      width: 15px;
-      background: cyan;
-      border-radius: 10px;
-      animation: wave 1s infinite ease-in-out;
-      box-shadow: 0 0 15px cyan;
-    }
-
-    .bar:nth-child(2) { animation-delay: 0.1s; }
-    .bar:nth-child(3) { animation-delay: 0.2s; }
-    .bar:nth-child(4) { animation-delay: 0.3s; }
-    .bar:nth-child(5) { animation-delay: 0.4s; }
-    .bar:nth-child(6) { animation-delay: 0.5s; }
-
-    @keyframes wave {
-      0%,100% {
-        height: 30px;
-      }
-      50% {
-        height: 120px;
-      }
-    }
-
-    .stats {
-      margin-top: 25px;
-    }
-
-    .stats div {
-      margin-bottom: 20px;
-    }
-
-    .progress {
-      width: 100%;
-      height: 10px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 20px;
-      overflow: hidden;
-      margin-top: 10px;
-    }
-
-    .progress span {
-      display: block;
-      height: 100%;
-      background: linear-gradient(to right, cyan, #4facfe);
-      box-shadow: 0 0 20px cyan;
-      animation: load 3s infinite alternate;
-    }
-
-    @keyframes load {
-      from {
-        width: 30%;
-      }
-      to {
-        width: 90%;
-      }
-    }
-
-    .timeline {
-      border-left: 2px solid cyan;
-      padding-left: 40px;
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-    }
-
-    .timeline-card {
-      position: relative;
-    }
-
-    .timeline-card::before {
-      content: '';
-      width: 20px;
-      height: 20px;
-      background: cyan;
-      border-radius: 50%;
-      position: absolute;
-      left: -52px;
-      top: 35px;
-      box-shadow: 0 0 20px cyan;
-    }
-
-    .contact-form {
-      max-width: 700px;
-      margin: auto;
-    }
-
-    .contact-form input,
-    .contact-form textarea {
-      width: 100%;
-      padding: 18px;
-      margin-bottom: 20px;
-      border-radius: 15px;
-      border: 1px solid rgba(0,255,255,0.15);
-      background: rgba(255,255,255,0.05);
-      color: white;
-      outline: none;
-      transition: 0.3s;
-    }
-
-    .contact-form input:focus,
-    .contact-form textarea:focus {
-      border-color: cyan;
-      box-shadow: 0 0 20px rgba(0,255,255,0.3);
-    }
-
-    .socials {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 30px;
-    }
-
-    .socials a {
-      width: 60px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      text-decoration: none;
-      color: white;
-      border: 1px solid cyan;
-      transition: 0.4s;
-      font-size: 1.5rem;
-    }
-
-    .socials a:hover {
-      background: cyan;
-      color: black;
-      transform: translateY(-5px);
-      box-shadow: 0 0 20px cyan;
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px;
-      border-top: 1px solid rgba(0,255,255,0.1);
-      color: #aaa;
-    }
-
-    .loading-screen {
-      position: fixed;
-      inset: 0;
-      background: #050816;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 10000;
-      flex-direction: column;
-      transition: 1s;
-    }
-
-    .loader {
-      width: 120px;
-      height: 120px;
-      border: 4px solid rgba(0,255,255,0.1);
-      border-top: 4px solid cyan;
-      border-radius: 50%;
-      animation: rotate 1s linear infinite;
-      margin-bottom: 20px;
-    }
-
-    .loading-screen h2 {
-      color: cyan;
-      font-family: 'Orbitron', sans-serif;
-      letter-spacing: 5px;
-    }
-
-    @media(max-width:768px) {
-      .hero h2 {
-        font-size: 3rem;
+      .hero h2{
+        font-size:3rem;
       }
 
-      nav ul {
-        display: none;
+      nav ul{
+        display:none;
       }
 
-      .buttons {
-        flex-direction: column;
-      }
     }
+
   </style>
 </head>
 <body>
 
-  <div class="loading-screen" id="loading">
-    <div class="loader"></div>
-    <h2>INITIALIZING JARVIS...</h2>
+<div class="cursor"></div>
+
+<div class="particles" id="particles"></div>
+
+<div class="notification" id="notification">
+  🚀 Message Sent Successfully!
+</div>
+
+<nav>
+
+  <h1>JARVIS AI</h1>
+
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#dashboard">Dashboard</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+
+</nav>
+
+<section class="hero">
+
+  <div class="hero-content">
+
+    <h2>JARVIS AI Assistant</h2>
+
+    <p class="typing">
+      Next-Generation AI Voice Assistant
+    </p>
+
+    <div class="buttons">
+
+      <a href="https://github.com/SONU56216/Jarvis" target="_blank">
+        <button class="btn">View Project</button>
+      </a>
+
+      <a href="https://github.com/SONU56216" target="_blank">
+        <button class="btn">GitHub</button>
+      </a>
+
+      <a href="https://wa.me/9779769005305" target="_blank">
+        <button class="btn">Contact</button>
+      </a>
+
+    </div>
+
   </div>
 
-  <div class="cursor"></div>
+</section>
 
-  <div class="particles" id="particles"></div>
+<section id="about">
 
-  <nav>
-    <h1>JARVIS AI</h1>
+  <h2 class="section-title">About JARVIS</h2>
 
-    <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#features">Features</a></li>
-      <li><a href="#dashboard">Dashboard</a></li>
-      <li><a href="#github">GitHub</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
+  <div class="grid">
 
-  <section class="hero">
-    <div class="floating-orb"></div>
-
-    <div class="hero-content">
-      <h2>JARVIS AI Assistant</h2>
-      <p class="typing">Next-Generation AI Voice Assistant</p>
-
-      <div class="buttons">
-        <a href="https://github.com/SONU56216/Jarvis" target="_blank">
-          <button class="btn">View Project</button>
-        </a>
-        <a href="https://github.com/SONU56216" target="_blank">
-          <button class="btn">GitHub</button>
-        </a>
-        <a href="https://wa.me/9779769005305" target="_blank">
-          <button class="btn">Contact</button>
-        </a>
-      </div>
+    <div class="glass">
+      <div class="card-icon">🤖</div>
+      <h3>AI Voice Assistant</h3>
+      <br>
+      <p>
+        JARVIS is a futuristic AI system designed for automation,
+        robotics, productivity and intelligent interaction.
+      </p>
     </div>
-    </form>
-  </section>
 
-  <section id="about">
-    <h2 class="section-title">About JARVIS</h2>
-
-    <div class="about-grid">
-      <div class="about-card glass">
-        <h3>Futuristic AI System</h3>
-        <br>
-        <p>
-          JARVIS AI Assistant is an advanced intelligent automation system inspired by futuristic AI technologies.
-          It combines voice interaction, automation, robotics, productivity tools, and smart communication into one ecosystem.
-        </p>
-      </div>
-
-      <div class="ai-circle">
-        AI
-      </div>
+    <div class="glass">
+      <div class="card-icon">🧠</div>
+      <h3>Smart AI Interaction</h3>
+      <br>
+      <p>
+        Intelligent communication and futuristic AI assistance
+        powered by automation systems.
+      </p>
     </div>
-  </section>
 
-  <section id="features">
-    <h2 class="section-title">Core Features</h2>
-
-    <div class="feature-grid">
-      <div class="feature-card glass">
-        <i>🎙️</i>
-        <h3>Voice Commands</h3>
-        <p>Control the system using futuristic AI voice interaction.</p>
-      </div>
-
-      <div class="feature-card glass">
-        <i>🤖</i>
-        <h3>AI Chat</h3>
-        <p>Intelligent conversation system with smart responses.</p>
-      </div>
-
-      <div class="feature-card glass">
-        <i>💻</i>
-        <h3>Desktop Automation</h3>
-        <p>Automate tasks and applications using AI intelligence.</p>
-      </div>
-
-      <div class="feature-card glass">
-        <i>📱</i>
-        <h3>Phone Control</h3>
-        <p>Smart connectivity and mobile device integration.</p>
-      </div>
-
-      <div class="feature-card glass">
-        <i>🎵</i>
-        <h3>Music System</h3>
-        <p>Play and control music through AI interaction.</p>
-      </div>
-
-      <div class="feature-card glass">
-        <i>🧠</i>
-        <h3>Robotics Integration</h3>
-        <p>Future-ready robotics and AI automation vision.</p>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <h2 class="section-title">Tech Stack</h2>
-
-    <div class="tech-grid">
-      <div class="tech-card glass"><i>🐍</i><h3>Python</h3></div>
-      <div class="tech-card glass"><i>⚡</i><h3>JavaScript</h3></div>
-      <div class="tech-card glass"><i>⚛️</i><h3>React</h3></div>
-      <div class="tech-card glass"><i>🌐</i><h3>HTML/CSS</h3></div>
-      <div class="tech-card glass"><i>🔧</i><h3>Git</h3></div>
-      <div class="tech-card glass"><i>💻</i><h3>GitHub</h3></div>
-      <div class="tech-card glass"><i>🛠️</i><h3>VS Code</h3></div>
-    </div>
-  </section>
-
-  <section id="dashboard">
-    <h2 class="section-title">AI Dashboard Preview</h2>
-
-    <div class="dashboard-grid">
-      <div class="dashboard-card glass">
-        <h3>Voice Activity</h3>
-
-        <div class="bars">
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-        </div>
-      </div>
-
-      <div class="dashboard-card glass">
-        <h3>System Status</h3>
-
-        <div class="stats">
-          <div>
-            CPU Usage
-            <div class="progress"><span></span></div>
-          </div>
-
-          <div>
-            AI Processing
-            <div class="progress"><span></span></div>
-          </div>
-
-          <div>
-            RAM Usage
-            <div class="progress"><span></span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="github">
-    <h2 class="section-title">GitHub Section</h2>
-
-    <div class="github-grid">
-      <div class="github-card glass">
-        <h3>Contribution Graph</h3>
-        <p>Animated futuristic contribution analytics.</p>
-      </div>
-
-      <div class="github-card glass">
-        <h3>Repository Cards</h3>
-        <p>Display your top AI and automation repositories.</p>
-      </div>
-
-      <div class="github-card glass">
-        <h3>GitHub Stats</h3>
-        <p>Modern developer analytics and coding streaks.</p>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <h2 class="section-title">Future Vision</h2>
-
-    <div class="timeline">
-      <div class="timeline-card glass">
-        <h3>Robot Integration</h3>
-      </div>
-
-      <div class="timeline-card glass">
-        <h3>Face Recognition</h3>
-      </div>
-
-      <div class="timeline-card glass">
-        <h3>Smart Home Control</h3>
-      </div>
-
-      <div class="timeline-card glass">
-        <h3>AI Memory System</h3>
-      </div>
-
-      <div class="timeline-card glass">
-        <h3>Advanced Web Dashboard</h3>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact">
-    <h2 class="section-title">Contact Me</h2>
-
-    <form id="contactForm" action="https://formsubmit.co/sonuverse10@gmail.com" method="POST" class="contact-form glass">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_subject" value="New Message From JARVIS AI Website">
-      <input type="hidden" name="_template" value="table">
-      <input type="text" placeholder="Your Name">
-      <input type="email" placeholder="Your Email">
-      <textarea rows="6" placeholder="Your Message"></textarea>
-
-      <button type="submit" class="btn">Send Message</button>
-
-      <div class="socials">
-        <a href="https://github.com/SONU56216" target="_blank">💻</a>
-        <a href="https://wa.me/9779769005305" target="_blank">📱</a>
-        <a href="mailto:sonuverse10@gmail.com">📧</a>
-        <a href="#">💻</a>
-        <a href="#">🌐</a>
-        <a href="#">📧</a>
-      </div>
-    </div>
-  </section>
-
-  <div class="notification" id="notification">
-    🚀 Message Sent Successfully To JARVIS AI
   </div>
 
-  <footer>
-    © 2026 JARVIS AI Assistant • Futuristic Cyberpunk Website
-  </footer>
+</section>
 
-  <script>
-    const cursor = document.querySelector('.cursor');
+<section id="features">
 
-    document.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-    });
+  <h2 class="section-title">Core Features</h2>
 
-    const particles = document.getElementById('particles');
+  <div class="grid">
 
-    for(let i = 0; i < 80; i++) {
-      const particle = document.createElement('div');
-      particle.classList.add('particle');
+    <div class="glass">
+      <div class="card-icon">🎙️</div>
+      <h3>Voice Commands</h3>
+    </div>
 
-      particle.style.left = Math.random() * 100 + 'vw';
-      particle.style.animationDuration = 5 + Math.random() * 10 + 's';
-      particle.style.opacity = Math.random();
+    <div class="glass">
+      <div class="card-icon">💻</div>
+      <h3>Desktop Automation</h3>
+    </div>
 
-      particles.appendChild(particle);
-    }
+    <div class="glass">
+      <div class="card-icon">📱</div>
+      <h3>Phone Control</h3>
+    </div>
 
-    window.addEventListener('load', () => {
+    <div class="glass">
+      <div class="card-icon">🎵</div>
+      <h3>Music System</h3>
+    </div>
+
+    <div class="glass">
+      <div class="card-icon">🧠</div>
+      <h3>AI Chat</h3>
+    </div>
+
+    <div class="glass">
+      <div class="card-icon">🤖</div>
+      <h3>Robotics Integration</h3>
+    </div>
+
+  </div>
+
+</section>
+
+<section id="dashboard">
+
+  <h2 class="section-title">AI Dashboard</h2>
+
+  <div class="dashboard">
+
+    <div class="glass">
+
+      <h3>Voice Activity</h3>
+
+      <div class="bars">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+
+    </div>
+
+    <div class="glass">
+
+      <h3>System Status</h3>
+
+      <br>
+
+      <p>CPU Usage</p>
+      <div class="progress"><span></span></div>
+
+      <br>
+
+      <p>AI Processing</p>
+      <div class="progress"><span></span></div>
+
+      <br>
+
+      <p>RAM Usage</p>
+      <div class="progress"><span></span></div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section>
+
+  <h2 class="section-title">Future Vision</h2>
+
+  <div class="timeline">
+
+    <div class="glass timeline-card">
+      <h3>Robot Integration</h3>
+    </div>
+
+    <div class="glass timeline-card">
+      <h3>Face Recognition</h3>
+    </div>
+
+    <div class="glass timeline-card">
+      <h3>Smart Home Automation</h3>
+    </div>
+
+    <div class="glass timeline-card">
+      <h3>AI Memory System</h3>
+    </div>
+
+  </div>
+
+</section>
+
+<section id="contact">
+
+  <h2 class="section-title">Contact Me</h2>
+
+  <form id="contactForm" class="glass">
+
+    <input
+      type="text"
+      name="from_name"
+      placeholder="Your Name"
+      required
+    >
+
+    <input
+      type="email"
+      name="from_email"
+      placeholder="Your Email"
+      required
+    >
+
+    <textarea
+      name="message"
+      rows="6"
+      placeholder="Your Message"
+      required
+    ></textarea>
+
+    <button type="submit" class="btn">
+      Send Message
+    </button>
+
+    <div class="socials">
+
+      <a href="https://github.com/SONU56216" target="_blank">
+        💻
+      </a>
+
+      <a href="https://wa.me/9779769005305" target="_blank">
+        📱
+      </a>
+
+      <a href="mailto:sonuverse10@gmail.com">
+        📧
+      </a>
+
+    </div>
+
+  </form>
+
+</section>
+
+<footer>
+  © 2026 JARVIS AI Assistant • Futuristic AI Website
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script>
+
+  // =========================
+  // EMAILJS SETUP
+  // =========================
+
+  emailjs.init("hIMSL8MsnPCaIujTa");
+
+  document
+  .getElementById("contactForm")
+
+  .addEventListener("submit", function(event){
+
+    event.preventDefault();
+
+    emailjs.sendForm(
+      "service_fo8ri6a",
+      "template_a876mmq",
+      this
+    )
+
+    .then(() => {
+
+      document
+      .getElementById("notification")
+      .classList.add("show");
+
       setTimeout(() => {
-        document.getElementById('loading').style.opacity = '0';
-        document.getElementById('loading').style.visibility = 'hidden';
-      }, 2500);
-    });
 
-    const cards = document.querySelectorAll('.glass');
+        document
+        .getElementById("notification")
+        .classList.remove("show");
 
-    const form = document.getElementById('contactForm');
-    const notification = document.getElementById('notification');
-
-    form.addEventListener('submit', () => {
-      notification.classList.add('show');
-
-      setTimeout(() => {
-        notification.classList.remove('show');
       }, 4000);
+
+      this.reset();
+
+    })
+
+    .catch((error) => {
+
+      alert("❌ Failed To Send Message");
+
+      console.log(error);
+
     });
 
-    document.querySelectorAll('.btn').forEach(btn => {
-      btn.addEventListener('mouseenter', () => {
-        btn.style.boxShadow = '0 0 50px cyan';
-      });
-    });
+  });
 
-    cards.forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+  // =========================
+  // CURSOR EFFECT
+  // =========================
 
-        card.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(0,255,255,0.15), rgba(255,255,255,0.05))`;
-      });
+  const cursor = document.querySelector('.cursor');
 
-      card.addEventListener('mouseleave', () => {
-        card.style.background = 'rgba(255,255,255,0.05)';
-      });
-    });
-  </script>
+  document.addEventListener('mousemove', e => {
+
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+
+  });
+
+  // =========================
+  // PARTICLES
+  // =========================
+
+  const particles = document.getElementById('particles');
+
+  for(let i=0;i<80;i++){
+
+    const particle = document.createElement('div');
+
+    particle.classList.add('particle');
+
+    particle.style.left = Math.random()*100 + 'vw';
+
+    particle.style.animationDuration =
+    5 + Math.random()*10 + 's';
+
+    particle.style.opacity = Math.random();
+
+    particles.appendChild(particle);
+
+  }
+
+</script>
 
 </body>
 </html>
